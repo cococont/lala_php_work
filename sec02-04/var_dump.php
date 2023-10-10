@@ -14,6 +14,9 @@
   $tokuten = 45; // 整数
   $isPass = ($tokuten > 80); // 論理値
   $userName; // 値なし
+  ?>
+  <pre>
+  <?php
   var_dump($msg);
   var_dump($colors);
   var_dump($now);
@@ -21,6 +24,7 @@
   var_dump($isPass);
   var_dump($userName);
   ?>
+  </pre>
 </body>
 
 </html>

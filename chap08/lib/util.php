@@ -1,0 +1,44 @@
+<?php
+function es(array|string $data, string $charset="UTF-8"):mixed {
+  if (is_array($data)) {
+    return array_map(__METHOD__, $data);
+  } else {
+    return htmlspecialchars(string:$data, flags:ENT_QUOTES, encoding:$charset);
+  }
+}
+
+function h(string $data) {
+  return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+}
+
+function cken(array|string $data): bool {
+  if (phpversion() >= "7.2.0") {
+    return mb_check_encoding($data);
+  } else {
+    if (is_array($data)) {
+      return cken_old($data);
+    } else {
+      return mb_check_encoding($data);
+    }
+  }
+}
+// php7.2.0より前の記述 mb_check_encoding が文字列しか受け取れない時代
+// $dataがUTF-8ならtrueそれ以外はfalse
+function cken_old(array $data): bool {
+  $result = true;
+  foreach ($data as $key => $value) {
+    if (is_array($value)) {
+      $value = implode("", $value);
+    }
+    if (!mb_check_encoding($value)) {
+      $result = false;
+      break;
+    }
+  }
+  return $result;
+}
+
+function print_error($errors) {
+
+}
+// ?>
